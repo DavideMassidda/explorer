@@ -7,7 +7,7 @@ cor.matrix(x, y = NULL, z = NULL, na.action = "listwise.deletion", method = "pea
 }
 \arguments{
     \item{x}{
-        Un vettore numerico, una matrice o un data frame.
+        Vettore numerico, matrice o data frame.
     }
     \item{y}{
         Vettore numerico da mettere un correlazione con \code{x}, quando
