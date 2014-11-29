@@ -1,4 +1,4 @@
-\name{cor.matrix}
+﻿\name{cor.matrix}
 \alias{cor.matrix}
 \title{Matrice di correlazione con significatività}
 \description{Calcola la matrice di correlazione indicando le significatività.}

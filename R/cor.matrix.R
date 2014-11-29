@@ -1,4 +1,4 @@
-cor.matrix <-
+﻿cor.matrix <-
 function(x,y=NULL,z=NULL,na.action="listwise.deletion",method="pearson")
 {
     # Verifica di na.action
@@ -19,7 +19,7 @@ function(x,y=NULL,z=NULL,na.action="listwise.deletion",method="pearson")
         if(grepl("\\$", x.name))
             x.name <- unlist(strsplit(x.name, "\\$"))[2]
         if(is.null(y))
-            error("You must provide both \'x\' and \'y\' or \'x\' in matrix form")
+            stop("You must provide both \'x\' and \'y\' or \'x\' in matrix form")
         else {
             y.name <- deparse(substitute(y))
             if(grepl("\\$", y.name))
@@ -102,12 +102,12 @@ function(x,y=NULL,z=NULL,na.action="listwise.deletion",method="pearson")
 }
 
 print.cor.matrix <-
-function(object)
+function(x,...)
 {
-    mat.dim <- ncol(object$cor.values)
-    col.names <- row.names <- colnames(object$x)
-    sig <- (object$p.values < 0.001) + (object$p.values < 0.01) +
-        (object$p.values < 0.05) + (object$p.values < 0.1)
+    mat.dim <- ncol(x$cor.values)
+    col.names <- row.names <- colnames(x$x)
+    sig <- (x$p.values < 0.001) + (x$p.values < 0.01) +
+        (x$p.values < 0.05) + (x$p.values < 0.1)
     sig <-
         ifelse(sig == 4, "*** ",
             ifelse(sig == 3, "**  ",
@@ -172,7 +172,7 @@ function(object)
         cat("\n",row.names[i],stringAdd)
         for(j in 1:k) {
             #if(i!=j)
-                cat(sprintf("% .4f",object$cor.values[i,j]),sig[i,j])
+                cat(sprintf("% .4f",x$cor.values[i,j]),sig[i,j])
             #else
             #    cat(sprintf("%s",diagChar),sig[i,j])
         }

@@ -11,8 +11,8 @@ oneway.boxplot(formula, data, box = list(lwd = 1, lty = 2, col = "royalblue1"),
     pch = 19, cex = 1, join = NULL), shift = 0.2, ...)
 }
 \arguments{
-    \item{x}{Variabile indipendente di tipo fattore.}
-    \item{y}{Variabile dipendente.}
+    \item{formula}{Formula che indica la variabile dipendente e la variabile indipendente (di tipo fattore).}
+    \item{data}{Data frame che contiene le variabili.}
     \item{box}{Specifiche grafiche da passare alla funzione \code{boxplot}.}
     \item{bars}{Specifiche grafiche delle linee.}
     \item{shift}{Scostamento dal centro del boxplot delle barre delle media.}

@@ -70,32 +70,32 @@ function(x, y=NULL, cases=NULL, delete.cases=NULL, na.action="listwise.deletion"
 }
 
 print.cor.drop <-
-function(object)
+function(x,...)
 {
-    sig <- ifelse(object$overall.test$p.value < 0.001, "(p < 0.001)",
-                  ifelse(object$overall.test$p.value < 0.01, "(p < 0.01)",
-                         ifelse(object$overall.test$p.value < 0.05, "(p < 0.05)","(p = n.s.)")))
+    sig <- ifelse(x$overall.test$p.value < 0.001, "(p < 0.001)",
+                  ifelse(x$overall.test$p.value < 0.01, "(p < 0.01)",
+                         ifelse(x$overall.test$p.value < 0.05, "(p < 0.05)","(p = n.s.)")))
     method <- paste0(
-        toupper(substr(object$method,1,1)),
-        substr(object$method,2,nchar(object$method)),"\'s"
+        toupper(substr(x$method,1,1)),
+        substr(x$method,2,nchar(x$method)),"\'s"
     )
-    cat("\nOverall",method,"correlation: r =",round(object$overall.test$estimate,4),sig,"\n\n")
+    cat("\nOverall",method,"correlation: r =",round(x$overall.test$estimate,4),sig,"\n\n")
     cat("Correlations calculated deleting single cases:\n")
-    object$correlations$cor <- round(object$correlations$cor,4)
-    print(object$correlations)
+    x$correlations$cor <- round(x$correlations$cor,4)
+    print(x$correlations)
 }
 
 plot.cor.drop <-
-function(object, vertical=FALSE, main=NULL, axis.lim=NULL, mar.bottom=5.1, mar.left=4.1, mar.top=4.1, mar.right=2.1)
+function(x, vertical=FALSE, main=NULL, axis.lim=NULL, mar.bottom=5.1, mar.left=4.1, mar.top=4.1, mar.right=2.1,...)
 {
-    y <- object$correlations$cor
-    s <- object$correlations$cases
-    r <- object$overall.test$estimate
-    n <- nrow(object$data)
+    y <- x$correlations$cor
+    s <- x$correlations$cases
+    r <- x$overall.test$estimate
+    n <- nrow(x$data)
     # Definizione dettagli grafici:
     cor.lab <- paste0(
-        toupper(substr(object$method,1,1)),
-        substr(object$method,2,nchar(object$method)),
+        toupper(substr(x$method,1,1)),
+        substr(x$method,2,nchar(x$method)),
         "\'s correlation index"
     )
     mar <- c(mar.bottom,mar.left,mar.top,mar.right)
@@ -119,7 +119,7 @@ function(object, vertical=FALSE, main=NULL, axis.lim=NULL, mar.bottom=5.1, mar.l
         stripchart(y ~ s, vertical=vertical, las=2,
                pch=21, cex=cex, bg="grey",
                xlim=axis.lim, xlab="", ylab="")
-        rect(object$diff.ci[1],0,object$diff.ci[2],n+1,col="gray90",border=NA)
+        rect(x$diff.ci[1],0,x$diff.ci[2],n+1,col="gray90",border=NA)
         for(i in 1:n) segments(-1,i,1,i,col="gray70")
         for(i in seq(lim[1],lim[2],by=0.1))
             segments(i,0,i,n+1,lty=2,col=ifelse(round(i,1)!=0,"gray70","red3"))
@@ -130,7 +130,7 @@ function(object, vertical=FALSE, main=NULL, axis.lim=NULL, mar.bottom=5.1, mar.l
     } else {
         stripchart(y ~ s, vertical=vertical, las=2, pch=21, cex=cex, bg="grey",
                ylim=axis.lim, xlab="", ylab="")
-        rect(0,object$diff.ci[1],n+1,object$diff.ci[2],col="gray90",border=NA)
+        rect(0,x$diff.ci[1],n+1,x$diff.ci[2],col="gray90",border=NA)
         for(i in 1:n) segments(i,-1,i,1,col="gray70")
         for(i in seq(lim[1],lim[2],by=0.1))
             segments(0,i,n+1,i,lty=2,col=ifelse(round(i,1)!=0,"gray70","red3"))
