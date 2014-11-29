@@ -22,6 +22,8 @@ function(x, y=NULL, cases=NULL, delete.cases=NULL, na.action="listwise.deletion"
             df <- data.frame(x,y)
         if(is.null(cases))
             df$cases <- 1:nrow(df)
+        else
+            df$cases <- cases
         df$cases <- as.character(df$cases)
      } else {
         df <- x
