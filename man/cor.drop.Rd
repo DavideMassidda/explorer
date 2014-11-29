@@ -1,4 +1,4 @@
-﻿\name{cor.drop}
+\name{cor.drop}
 \alias{cor.drop}
 \title{Identificazione dei casi influenti nella correlazione}
 \description{
