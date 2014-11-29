@@ -1,4 +1,4 @@
-﻿cor.matrix <-
+cor.matrix <-
 function(x,y=NULL,z=NULL,na.action="listwise.deletion",method="pearson")
 {
     # Verifica di na.action
