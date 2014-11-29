@@ -1,4 +1,4 @@
-﻿\name{print.cor.matrix}
+\name{print.cor.matrix}
 \alias{print.cor.matrix}
 \title{Da descrivere}
 \description{
