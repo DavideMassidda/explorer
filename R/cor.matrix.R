@@ -12,7 +12,7 @@ function(x,y=NULL,z=NULL,na.action="listwise.deletion",method="pearson")
     # Verifica di method
     method <- tolower(method[1])
     method.check <- method == c("pearson", "kendall", "spearman")
-    if(sum(mehotd.check) == 0)
+    if(sum(method.check) == 0)
         stop("method not identified")
     if(is.vector(x)) {
         x.name <- deparse(substitute(x))
