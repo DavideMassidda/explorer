@@ -7,6 +7,7 @@ function(x,y=NULL,z=NULL,na.action=c("listwise.deletion","pairwise.deletion","me
     # Verifica di method
     method <- tolower(method[1])
     method <- match.arg(method)
+    browser()
     if(is.vector(x)) {
         x.name <- deparse(substitute(x))
         if(grepl("\\$", x.name))
