@@ -1,19 +1,12 @@
 cor.matrix <-
-function(x,y=NULL,z=NULL,na.action="listwise.deletion",method="pearson")
+function(x,y=NULL,z=NULL,na.action=c("listwise.deletion","pairwise.deletion","mean.replace"),method=c("pearson","kendall","spearman"))
 {
     # Verifica di na.action
-    na.action <- tolower(na.action[1])
-    if(na.action == "mean") na.action <- "mean.replace"
-    if(na.action == "listwise") na.action <- "listwise.deletion"
-    if(na.action == "pairwise") na.action <- "pairwise.deletion"
-    na.action.check <- na.action == c("mean.replace", "listwise.deletion", "pairwise.deletion")
-    if(sum(na.action.check) == 0)
-        stop("na.action not identified")
+    na.action <- tolower(na.action)
+    na.action <- match.arg(na.action)
     # Verifica di method
-    method <- tolower(method[1])
-    method.check <- method == c("pearson", "kendall", "spearman")
-    if(sum(method.check) == 0)
-        stop("method not identified")
+    method <- tolower(method)
+    method <- match.arg(method)
     if(is.vector(x)) {
         x.name <- deparse(substitute(x))
         if(grepl("\\$", x.name))
