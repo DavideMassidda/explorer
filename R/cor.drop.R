@@ -2,10 +2,10 @@ cor.drop <-
 function(x, y=NULL, cases=NULL, delete.cases=NULL, na.action=c("listwise.deletion","mean.replace"),method=c("pearson","kendall","spearman"), alpha=0.05)
 {
     # Verifica di na.action
-    na.action <- tolower(na.action)
+    na.action <- tolower(na.action[1])
     na.action <- match.arg(na.action)
     # Verifica di method
-    method <- tolower(method)
+    method <- tolower(method[1])
     mathod <- match.arg(method)
     # Riorganizzazione dati
     if(is.vector(x)) {
