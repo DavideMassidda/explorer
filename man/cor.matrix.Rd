@@ -3,7 +3,10 @@
 \title{Matrice di correlazione con significatività}
 \description{Calcola la matrice di correlazione indicando le significatività.}
 \usage{
-cor.matrix(x, y = NULL, z = NULL, na.action = "listwise.deletion", method = "pearson")
+cor.matrix(x, y = NULL, z = NULL,
+           na.action = c("listwise.deletion", "pairwise.deletion", "mean.replace"),
+           method = c("pearson", "kendall","spearman")
+)
 }
 \arguments{
     \item{x}{
@@ -46,10 +49,6 @@ tutti i casi che presentano valori mancanti in \code{z} saranno rimossi.
 
 Il metodo \code{mean.replace} sostituisce gli NA con la media aritmetica della
 stessa variabile, calcolata omettendo i casi che presentano valori mancanti.
-
-I metodi \code{listwise.deletion}, \code{pairwise.deletion} e \code{mean.replace}
-possono essere più semplicemente richiamati come: \code{listwise}, \code{pairwise}
-e \code{mean}.
 }
 \value{
     \item{x}{Matrice di dati.}
@@ -65,9 +64,9 @@ Davide Massidda <davide.massidda@gmail.com>
 }
 \examples{
 data(airquality)
-cor.matrix(airquality, na.action="listwise.deletion")
-cor.matrix(airquality, na.action="pairwise.deletion")
-cor.matrix(airquality, na.action="mean.replace")
+cor.matrix(airquality, na.action="listwise")
+cor.matrix(airquality, na.action="pairwise")
+cor.matrix(airquality, na.action="mean")
 cor.matrix(airquality$Wind, airquality$Temp)
 cor.matrix(airquality$Wind, airquality$Temp, airquality$Ozone)
 }
