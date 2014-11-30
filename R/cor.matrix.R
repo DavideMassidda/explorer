@@ -2,10 +2,10 @@ cor.matrix <-
 function(x,y=NULL,z=NULL,na.action=c("listwise.deletion","pairwise.deletion","mean.replace"),method=c("pearson","kendall","spearman"))
 {
     # Verifica di na.action
-    na.action <- tolower(na.action)
+    na.action <- tolower(na.action[1])
     na.action <- match.arg(na.action)
     # Verifica di method
-    method <- tolower(method)
+    method <- tolower(method[1])
     method <- match.arg(method)
     if(is.vector(x)) {
         x.name <- deparse(substitute(x))
