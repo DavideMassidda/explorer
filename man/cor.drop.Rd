@@ -8,8 +8,9 @@
 }
 \usage{
 cor.drop(x, y = NULL, cases = NULL, delete.cases = NULL,
-    na.action = "listwise.deletion", method = "pearson",
-    alpha = 0.05)
+    na.action = c("listwise.deletion", "pairwise.deletion", "mean.replace"),
+    method = c("pearson", "kendall", "spearman"), alpha = 0.05
+)
 }
 \arguments{
     \item{x}{
@@ -53,13 +54,9 @@ del caso.
 Il metodo \code{mean.replace} sostituisce gli NA con la media aritmetica della
 stessa variabile, calcolata omettendo i casi che presentano valori mancanti.
 
-Per la funzione \code{cor.drop}, il metodo pairwise non è implementato. Più
-precisamente, questo può anche essere richiamato, ma darà i medesimi risultati
-del metodo listwise, perché la funzione considera esclusivamente due variabili
-per volta.
-
-I metodi \code{listwise.deletion} e \code{mean.replace} possono essere più
-semplicemente richiamati come: \code{listwise} e \code{mean}.
+Per la funzione \code{cor.drop}, il metodo pairwise non è implementato. Infatti,
+esso darebbe i medesimi risultati del metodo listwise, perché il metodo di analisi
+della funzione \code{cor.drop} considera esclusivamente due variabili per volta.
 }
 \value{
     \item{data}{Matrice di dati osservati.}
