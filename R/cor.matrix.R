@@ -1,5 +1,5 @@
 cor.matrix <-
-function(x,y=NULL,z=NULL,na.action=c("listwise.deletion","mean.replace"),method=c("pearson","kendall","spearman"))
+function(x,y=NULL,z=NULL,na.action=c("listwise.deletion","pairwise.deletion","mean.replace"),method=c("pearson","kendall","spearman"))
 {
     # Verifica di na.action
     na.action <- tolower(na.action[1])
