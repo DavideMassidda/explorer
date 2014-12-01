@@ -62,6 +62,7 @@ function(x,y=NULL,z=NULL,na.action=c("listwise.deletion","pairwise.deletion","me
     }
     rows <- nrow(x)
     x <- as.matrix(x)
+    n.missing <- matrix(0,nrow=cols,ncol=cols)
     deg.fr <- matrix(rows-2,nrow=cols,ncol=cols)
     if(na.action == "pairwise.deletion" & sum(is.na(x)) > 0) {
         combin <- combn(cols,2)
@@ -76,6 +77,7 @@ function(x,y=NULL,z=NULL,na.action=c("listwise.deletion","pairwise.deletion","me
                 v1 <- v1[-which(na.check)]
                 v2 <- v2[-which(na.check)]
             }
+            n.missing[combin[2,i],combin[1,i]] <- n.missing[combin[1,i],combin[2,i]] <- sum(na.check)
             deg.fr[combin[2,i],combin[1,i]] <- deg.fr[combin[1,i],combin[2,i]] <- rows-sum(na.check)-2
             cor.values[combin[2,i],combin[1,i]] <- cor.values[combin[1,i],combin[2,i]] <- cor(v1,v2,method=method)
         }
@@ -84,12 +86,12 @@ function(x,y=NULL,z=NULL,na.action=c("listwise.deletion","pairwise.deletion","me
     }
     t.values <- cor.values/sqrt((1-cor.values^2)/deg.fr)
     p.values <- 2*(1-pt(abs(t.values),deg.fr))
-    diag(t.values) <- diag(p.values) <- NA
+    diag(t.values) <- diag(p.values) <- diag(deg.fr) <- diag(n.missing) <- NA
     var.names <- colnames(x)
     colnames(t.values) <- colnames(deg.fr) <- colnames(p.values) <- var.names
     rownames(t.values) <- rownames(deg.fr) <- rownames(p.values) <- var.names
-    output <- list(x=x,cor.values=cor.values,t.values=t.values,
-        df=deg.fr,p.values=p.values,method=method,na.action=na.action)
+    output <- list(x=x,cor.values=cor.values,t.values=t.values,df=deg.fr,
+        p.values=p.values,n.missing=n.missing,method=method,na.action=na.action)
     class(output) <- "cor.matrix"
     return(output)
 }
