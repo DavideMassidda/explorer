@@ -8,7 +8,7 @@
 }
 \usage{
 cor.drop(x, y = NULL, cases = NULL, delete.cases = NULL,
-    na.action = c("listwise.deletion", "pairwise.deletion", "mean.replace"),
+    na.action = c("listwise.deletion", "mean.replace"),
     method = c("pearson", "kendall", "spearman"), alpha = 0.05
 )
 }
