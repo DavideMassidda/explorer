@@ -35,6 +35,6 @@ Davide Massidda <davide.massidda@gmail.com>
 \examples{
 data(airquiality)
 colSums(is.na(airquality))
-ariquality.imp <- knn.impute(airquality)
+airquality.imp <- knn.impute(airquality)
 colSums(is.na(airquality.imp))
 }
