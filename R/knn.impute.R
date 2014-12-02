@@ -7,7 +7,7 @@ function(x)
 }
 
 knn.impute <-
-function(x, k=NULL, distance = c("euclidean","manhattan"), use = c("IC","CC"), fun=weighted.mean)
+function(x, k=NULL, distance=c("euclidean","manhattan"), use=c("IC","CC"), fun=weighted.mean)
 {
     distance <- distance[1]
     distance <- match.arg(distance)
