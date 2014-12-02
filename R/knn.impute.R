@@ -33,7 +33,6 @@ function(x, k=NULL, distance=c("euclidean","manhattan"), use=c("IC","CC"), fun=w
         miss.col <- which(na.check$miss[na.pos[i],])
         done.col <- which(na.check$done[na.pos[i],])
         for(j in 1:length(miss.col)) {
-            browser()
             if(use == "IC") {
                 filled.col <- c(miss.col[j],done.col)
                 donors <- which(rowSums(is.na(x[,filled.col]))==0)
