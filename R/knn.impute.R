@@ -38,7 +38,7 @@ function(x, k=NULL, distance=c("euclidean","manhattan"), use=c("IC","CC"), fun=w
         for(j in 1:length(miss.col)) {
             if(use == "IC") {
                 filled.col <- c(miss.col[j],done.col)
-                donors <- which(rowSums(is.na(x[,filled.col]))==0)
+                donors <- which(complete.cases(x[,filled.col]))
             } else
                 donors <- full.cases
             recipients <- matrix(
