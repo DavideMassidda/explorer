@@ -1,8 +1,8 @@
 Package: explorer
 Type: Package
 Title: Strumenti per l'esplorazione dei dati
-Version: 0.4-0
-Date: 2014-12-02
+Version: 0.4-1
+Date: 2014-12-03
 Author: Davide Massidda <davide.massidda@gmail.com>
 Maintainer: Davide Massidda <davide.massidda@gmail.com>
 Description: Strumenti per l'esplorazione e la gestione dei dati
