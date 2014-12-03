@@ -7,7 +7,7 @@ function(x)
 }
 
 knn.impute <-
-function(x, k=NULL, distance=c("euclidean","manhattan"), use=c("IC","CC"), fun=weighted.mean)
+function(x, k=NULL, distance=c("euclidean","manhattan"), use=c("IC","CC"), fun=weighted.mean, standard=TRUE)
 {
     distance <- distance[1]
     distance <- match.arg(distance)
@@ -26,6 +26,9 @@ function(x, k=NULL, distance=c("euclidean","manhattan"), use=c("IC","CC"), fun=w
     full.cases <- which(full.cases)
     k <- seq_len(k)
     fun <- match.fun(fun)
+    if(standard)
+        for(i in seq_len(ncol(x)))
+            x[,i] <- (x[,i]-mean(x[,i]))/sd(x[,i])
     x.imputed <- x
     na.check <- list(miss = is.na(x), done = !is.na(x))
     na.pos <- which(rowSums(na.check$miss) > 0)
