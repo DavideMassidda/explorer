@@ -6,7 +6,7 @@ Da descrivere
 }
 \usage{
 knn.impute(x, k = NULL, distance = c("euclidean", "manhattan"),
-           use = c("IC", "CC"), fun = weighted.mean)
+           use = c("IC", "CC"), fun = weighted.mean, standard = TRUE)
 }
 \arguments{
 \item{x}{Da descrivere}
@@ -14,6 +14,7 @@ knn.impute(x, k = NULL, distance = c("euclidean", "manhattan"),
 \item{distance}{Da descrivere}
 \item{use}{Da descrivere}
 \item{fun}{Da descrivere}
+\item{standard}{De descrivere}
 }
 \details{
 Da descrivere
