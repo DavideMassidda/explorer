@@ -26,7 +26,6 @@ function(x, k=NULL, distance=c("euclidean","manhattan"), use=c("IC","CC"), fun=w
     full.cases <- which(full.cases)
     k <- seq_len(k)
     fun <- match.fun(fun)
-    x.raw <- x
     x.imputed <- x
     if(standard)
         for(i in seq_len(ncol(x)))
@@ -47,7 +46,7 @@ function(x, k=NULL, distance=c("euclidean","manhattan"), use=c("IC","CC"), fun=w
                 nrow = length(donors), byrow = TRUE
             )
             distances <- rowSums(abs(recipients-x[donors,done.col])^q)
-            neighbour <- x.raw[donors[order(distances)[k]], miss.col[j]]
+            neighbour <- x.imputed[donors[order(distances)[k]], miss.col[j]]
             if(isWMEAN)
                 imputed.value <- weighted.mean(neighbour, w = distances[k])
             else
