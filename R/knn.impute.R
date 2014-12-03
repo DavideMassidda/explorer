@@ -26,10 +26,11 @@ function(x, k=NULL, distance=c("euclidean","manhattan"), use=c("IC","CC"), fun=w
     full.cases <- which(full.cases)
     k <- seq_len(k)
     fun <- match.fun(fun)
+    x.raw <- x
+    x.imputed <- x
     if(standard)
         for(i in seq_len(ncol(x)))
-            x[,i] <- (x[,i]-mean(x[,i]))/sd(x[,i])
-    x.imputed <- x
+            x[,i] <- (x[,i]-mean(x[,i],na.rm=TRUE))/sd(x[,i],na.rm=TRUE)
     na.check <- list(miss = is.na(x), done = !is.na(x))
     na.pos <- which(rowSums(na.check$miss) > 0)
     for(i in 1:length(na.pos)) {
@@ -46,9 +47,9 @@ function(x, k=NULL, distance=c("euclidean","manhattan"), use=c("IC","CC"), fun=w
                 nrow = length(donors), byrow = TRUE
             )
             distances <- rowSums(abs(recipients-x[donors,done.col])^q)
-            neighbour <- x[donors[order(distances)],]
+            neighbour <- x.raw[donors[order(distances)[k]], miss.col[j]]
             if(isWMEAN)
-                imputed.value <- weighted.mean(neighbour[k,miss.col[j]], w = distances[k])
+                imputed.value <- weighted.mean(neighbour, w = distances[k])
             else
                 imputed.value <- fun(neighbour[k,miss.col[j]])
             x.imputed[na.pos[i],miss.col[j]] <- imputed.value
