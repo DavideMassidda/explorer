@@ -25,7 +25,6 @@ function(x, k=NULL, distance=c("euclidean","manhattan"), use=c("IC","CC"), fun=w
     }
     full.cases <- which(full.cases)
     k <- seq_len(k)
-    fun <- match.fun(fun)
     x.imputed <- x
     if(standard)
         for(i in seq_len(ncol(x)))
@@ -50,7 +49,7 @@ function(x, k=NULL, distance=c("euclidean","manhattan"), use=c("IC","CC"), fun=w
             if(isWMEAN)
                 imputed.value <- weighted.mean(neighbour, w = distances[k])
             else
-                imputed.value <- fun(neighbour[k,miss.col[j]])
+                imputed.value <- fun(neighbour)
             x.imputed[na.pos[i],miss.col[j]] <- imputed.value
         }
     }
