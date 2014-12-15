@@ -35,7 +35,7 @@ function(x, k=NULL, distance=c("euclidean","manhattan"), use=c("IC","CC"), fun=w
         miss.col <- which(na.check$miss[na.pos[i],])
         done.col <- which(na.check$done[na.pos[i],])
         if(length(done.col) == 0) {
-            warning("The case",na.pos[i],"is full NAs.")
+            warning("The case ",na.pos[i]," is full NAs.")
             next
         }
         for(j in 1:length(miss.col)) {
