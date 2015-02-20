@@ -1,5 +1,5 @@
-\name{na.replace}
-\alias{na.replace}
+\name{preview}
+\alias{preview}
 \title{Anteprima di un dataset}
 \description{
   Da descrivere
