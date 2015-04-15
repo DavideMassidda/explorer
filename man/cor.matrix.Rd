@@ -32,6 +32,13 @@ cor.matrix(x, y = NULL, z = NULL,
         Coefficiente di correlazione da calcolare. Le possibili opzioni sono:
         "pearson", "kendall" e "spearman".
     }
+    \item{half.view}{
+        Indica quale porzione della matrice di correlazione visualizzare in
+        output. Possibili opzioni sono: "lower", "upper" e "none".
+    }
+    \item{digits}{
+        Numero di cifre decimali da visualizzare in output.
+    }
 }
 \details{
 Se sono presenti dei dati mancanti (NA), l'argomento na.action può essere
@@ -41,11 +48,12 @@ indici di correlazione verranno quindi calcolati solo a seguito dell'eliminazion
 del caso.
 
 Se viene applicato il metodo \code{pairwise.deletion}, un caso viene rimosso
-soltanto quando questo presenta uno o più NA in una delle due variabili sotto
-analisi. L'eliminazione non è quindi generalizzata, ma finalizzata al calcolo
-dello specifico indice di correlazione. Attenzione: se è specificato un vettore
-\code{z} che contiene NA, anche se il metodo specificato è \code{pairwise.deletion},
-tutti i casi che presentano valori mancanti in \code{z} saranno rimossi.
+soltanto quando presenta uno o più NA in una delle due variabili sotto analisi
+e la sua eliminazione è contestuale al calcolo del singolo indice.
+L'eliminazione non è quindi generalizzata, ma finalizzata al calcolo dello specifico
+indice di correlazione. Attenzione: se è specificato un vettore \code{z} che
+contiene NA, anche se il metodo specificato è \code{pairwise.deletion}, tutti i
+casi che presentano valori mancanti in \code{z} saranno rimossi.
 
 Il metodo \code{mean.replace} sostituisce gli NA con la media aritmetica della
 stessa variabile, calcolata omettendo i casi che presentano valori mancanti.
@@ -58,6 +66,8 @@ stessa variabile, calcolata omettendo i casi che presentano valori mancanti.
     \item{p.values}{Valori di probabilità.}
     \item{method}{Coefficiente di correlazione utilizato.}
     \item{na.action}{Modalità di trattamento degli NA.}
+    \item{half.view}{Porzione della matrice da visualizzate.}
+    \item{digits}{Numero di cifre decimali degli indici.}
 }
 \author{
 Davide Massidda <davide.massidda@gmail.com>

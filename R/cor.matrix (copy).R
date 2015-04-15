@@ -1,5 +1,5 @@
 cor.matrix <-
-function(x,y=NULL,z=NULL,na.action=c("listwise.deletion","pairwise.deletion","mean.replace"),method=c("pearson","kendall","spearman"),half.view=c("lower","upper","none"),digits=3)
+function(x,y=NULL,z=NULL,na.action=c("listwise.deletion","pairwise.deletion","mean.replace"),method=c("pearson","kendall","spearman"),digits=3)
 {
     # Verifica di na.action
     na.action <- tolower(na.action[1])
@@ -7,12 +7,6 @@ function(x,y=NULL,z=NULL,na.action=c("listwise.deletion","pairwise.deletion","me
     # Verifica di method
     method <- tolower(method[1])
     method <- match.arg(method)
-    # Verifica di half.view
-    half.view <- tolower(half.view[1])
-    half.view <- match.arg(half.view)
-    # Verifica di digits
-    digits <- as.numeric(digits[1])
-    # Verifica di x, y e z
     if(is.vector(x)) {
         x.name <- deparse(substitute(x))
         if(grepl("\\$", x.name))
@@ -103,8 +97,8 @@ function(x,y=NULL,z=NULL,na.action=c("listwise.deletion","pairwise.deletion","me
     var.names <- colnames(x)
     colnames(t.values) <- colnames(deg.fr) <- colnames(p.values) <- colnames(n.missing) <- var.names
     rownames(t.values) <- rownames(deg.fr) <- rownames(p.values) <- rownames(n.missing) <- var.names
-    output <- list(x=x,cor.values=cor.values,t.values=t.values,df=deg.fr,p.values=p.values,
-    n.missing=n.missing,method=method,na.action=na.action,half.view=half.view,digits=digits)
+    output <- list(x=x,cor.values=cor.values,t.values=t.values,df=deg.fr,
+        p.values=p.values,n.missing=n.missing,method=method,na.action=na.action,digits=digits)
     class(output) <- "cor.matrix"
     return(output)
 }
@@ -112,24 +106,12 @@ function(x,y=NULL,z=NULL,na.action=c("listwise.deletion","pairwise.deletion","me
 print.cor.matrix <-
 function(x,...)
 {
-    print.dig <- paste("%.",x$digits,"f",sep="")
     mat.dim <- ncol(x$cor.values)
-    r <- sprintf(print.dig,c(x$cor.values))
-    r <- formatC(r)
-    r <- matrix(r,nrow=mat.dim,ncol=mat.dim)
-    pval <- x$p.value
-    cor.empty <- paste(rep.int(" ",max(nchar(r))),collapse="",sep="")
-    cor.del <- combn(mat.dim,2)
-    index <- switch(x$half.view,"lower"=1:2,"upper"=2:1,"none"=0)
-    if(length(index)>0) {
-        for(i in 1:ncol(cor.del)) {
-            r[cor.del[index[1],i],cor.del[index[2],i]] <- cor.empty
-            pval[cor.del[index[1],i],cor.del[index[2],i]] <- NA
-        }
-    }
-    col.names <- paste(colnames(x$x),"")
-    row.names <- paste(formatC(colnames(x$x)),"")
-    sig <- (pval<0.001) + (pval<0.01) + (pval<0.05) + (pval<0.1)
+    col.names <- colnames(x$x)
+    row.names <- paste(formatC(col.names),"")
+    col.names <- paste(formatC(col.names,width=-1),"")
+    sig <- (x$p.values < 0.001) + (x$p.values < 0.01) +
+        (x$p.values < 0.05) + (x$p.values < 0.1)
     sig <-
         ifelse(sig == 4, "***",
             ifelse(sig == 3, "** ",
@@ -139,16 +121,14 @@ function(x,...)
             )
         )
     diag(sig) <- rep.int("   ",mat.dim)
-    sig[is.na(sig)] <- rep.int("   ",sum(is.na(sig)))
-    r <- paste(r,sig)
-    for(i in 1:mat.dim) {
-        pos <- (1:mat.dim)+mat.dim*(i-1)
-        max.char <- max(nchar(col.names[i]),nchar(r[pos]))
-        col.names[i] <- formatC(col.names[i],width=-max.char)
-        r[pos] <- formatC(r[pos],width=-max.char)
-    }
+    print.dig <- paste("% .",x$digits,"f",sep="")
+    r <- sprintf(print.dig,x$cor.values)
+    max.char <- max(nchar(c(col.names,r)))+1
+    r <- formatC(paste(r,sig),width=-max.char)
+    max.char <- max(nchar(r))
+    col.names <- formatC(col.names,width=-max.char)
     col.names <- c(formatC("",width=max(nchar(row.names))),col.names)
-    r <- matrix(r,nrow=mat.dim,ncol=mat.dim)
+    r <- matrix(r,nrow=mat.dim,ncol=mat.dim,byrow=TRUE)
     r <- cbind(row.names,r)
     for(i in 1:mat.dim) {
         if(i==1) cat(col.names,"\n")
