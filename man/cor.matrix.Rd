@@ -5,8 +5,8 @@
 \usage{
 cor.matrix(x, y = NULL, z = NULL,
            na.action = c("listwise.deletion", "pairwise.deletion", "mean.replace"),
-           method = c("pearson", "kendall", "spearman")
-)
+           half.view=c("lower","upper","none"),
+           method = c("pearson", "kendall", "spearman"), digits = 3)
 }
 \arguments{
     \item{x}{
