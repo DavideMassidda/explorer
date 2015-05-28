@@ -1,4 +1,5 @@
-outliers <- function(x, split = NULL, method = "boxplot", type = 7)
+outliers <-
+function(x, split = NULL, method = "boxplot", type = 7)
 {
     x <- as.numeric(x)
     method <- method[1]
