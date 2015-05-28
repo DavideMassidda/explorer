@@ -12,7 +12,7 @@ outliers(x, split = NULL, method = "boxplot", type = 7)
     \item{x}{Vettore di dati numerici.}
     \item{split}{Fattore di raggruppamento dei dati in \code{x}. Se \code{split} viene specificato, i dati
       in \code{x} saranno suddivisi a seconda del livello del fattore di raggruppamento a cui appartengono
-      e gli outlier saranno ricercati all'interno dei raggruppamenti.}
+      e gli outlier saranno ricercati all'interno dei singoli raggruppamenti.}
     \item{method}{Metodo per l'identificazione degli outlier. Attualmente, l'unico metodo implementato è
       \code{boxplot}, che identifica come outlier i valori che si posizionano oltre i limiti definiti dai
       "baffi".}
