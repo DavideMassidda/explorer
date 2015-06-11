@@ -1,6 +1,6 @@
 oneway.boxplot <-
 function(formula,data,box=list(lwd=1,lty=2,col="royalblue1"),
-    bars=list(lwd=1,lty=1,col="black",angle=90,pch=19,cex=1,join=NULL),shift=0.2,...)
+    bars=list(lwd=1,lty=1,col="black",angle=90,pch=19,cex=1,join=NULL),CI=TRUE,alpha=0.05,shift=0.2,...)
 {
     if(!is.null(data))
         dataset <- model.frame(formula,data=data)
@@ -29,6 +29,8 @@ function(formula,data,box=list(lwd=1,lty=2,col="royalblue1"),
     s <- as.numeric(tapply(y,x,sd))
     n <- tapply(y,x,length)
     SE <- s/sqrt(n)
+    if(CI)
+        SE <- qnorm(1-alpha/2) * SE
     boxplot(y ~ x,
         boxcol=box$col,boxlwd=box$lwd,boxlty=box$lty,
         medcol=box$col,medlwd=box$lwd,medlty=box$lty,
