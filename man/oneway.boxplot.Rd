@@ -15,6 +15,9 @@ oneway.boxplot(formula, data, box = list(lwd = 1, lty = 2, col = "royalblue1"),
     \item{data}{Data frame che contiene le variabili.}
     \item{box}{Specifiche grafiche da passare alla funzione \code{boxplot}.}
     \item{bars}{Specifiche grafiche delle linee.}
+    \item{CI}{Valore logico. Se \code{TRUE}, le barre d'errore rappresenteranno l'intervallo di confidenza,
+        se \code{FALSE}, le barre rappresenteranno l'errore standard.}
+    \item{alpha}{Valore critico per il calcolo dell'intervallo di confiedenza.}
     \item{shift}{Scostamento dal centro del boxplot delle barre delle media.}
     \item{...}{Ulteriori argomenti da passare alla funzione \code{boxplot}.}
 }
