@@ -40,7 +40,7 @@ function(formula,data,box=list(lwd=1,lty=2,col="royalblue1"),
     )
     arrows(shift,m-SE,shift,m+SE,angle=bars$angle,code=3,lwd=bars$lwd,col=bars$col)
     points(shift,m,col=bars$col,pch=bars$pch,cex=bars$cex)
-    !identical(FALSE, bars$join) {
+    if(!identical(FALSE, bars$join)) {
         if(isTRUE(bars$join))
             if(is.null(bars$join)) bars$join <- 1:lev
         for(i in bars$join)
