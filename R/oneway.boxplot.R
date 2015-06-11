@@ -43,7 +43,7 @@ function(formula,data,box=list(lwd=1,lty=2,col="royalblue1"),
     if(!identical(FALSE, bars$join)) {
         if(isTRUE(bars$join))
             if(is.null(bars$join)) bars$join <- 1:lev
-        for(i in bars$join)
-            segments(shift[i],m[i],shift[i+1],m[i+1],lwd=bars$lwd,col=bars$col)
+        for(i in 1:length(bars$join))
+            segments(shift[bars$join[i]],m[bars$join[i]],shift[bars$join[i+1]],m[bars$join[i+1]],lwd=bars$lwd,col=bars$col)
     }
 }
