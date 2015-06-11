@@ -7,8 +7,8 @@
 }
 \usage{
 oneway.boxplot(formula, data, box = list(lwd = 1, lty = 2, col = "royalblue1"),
-    bars = list(lwd = 1, lty = 1, col = "black", angle = 90,
-    pch = 19, cex = 1, join = NULL), shift = 0.2, ...)
+    bars = list(join = FALSE, lwd = 1, lty = 1, col = "black", angle = 90,
+    pch = 19, cex = 1), shift = 0.2, ...)
 }
 \arguments{
     \item{formula}{Formula che indica la variabile dipendente e la variabile indipendente (di tipo fattore).}
