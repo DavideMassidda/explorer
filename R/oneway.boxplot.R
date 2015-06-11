@@ -1,6 +1,6 @@
 oneway.boxplot <-
 function(formula,data,box=list(lwd=1,lty=2,col="royalblue1"),
-    bars=list(lwd=1,lty=1,col="black",angle=90,pch=19,cex=1,join=NULL),CI=TRUE,alpha=0.05,shift=0.2,...)
+    bars=list(join=FALSE,lwd=1,lty=1,col="black",angle=90,pch=19,cex=1),CI=TRUE,alpha=0.05,shift=0.2,...)
 {
     if(!is.null(data))
         dataset <- model.frame(formula,data=data)
@@ -40,7 +40,10 @@ function(formula,data,box=list(lwd=1,lty=2,col="royalblue1"),
     )
     arrows(shift,m-SE,shift,m+SE,angle=bars$angle,code=3,lwd=bars$lwd,col=bars$col)
     points(shift,m,col=bars$col,pch=bars$pch,cex=bars$cex)
-    if(is.null(bars$join)) bars$join <- 1:lev
-    for(i in bars$join)
-        segments(shift[i],m[i],shift[i+1],m[i+1],lwd=bars$lwd,col=bars$col)
+    !identical(FALSE, bars$join) {
+        if(isTRUE(bars$join))
+            if(is.null(bars$join)) bars$join <- 1:lev
+        for(i in bars$join)
+            segments(shift[i],m[i],shift[i+1],m[i+1],lwd=bars$lwd,col=bars$col)
+    }
 }
