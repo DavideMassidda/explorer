@@ -1,9 +1,8 @@
 \name{oneway.boxplot}
 \alias{oneway.boxplot}
-\title{Box-plot univariato}
+\title{Box-plot a una via}
 \description{
-    Per ogni livello del fattore, sovrappone la media e il suo l'errore standard al rispettivo
-    boxplot.
+    Per ogni livello del fattore, sovrappone la media e il suo intervallo di confidenza al relativo boxplot.
 }
 \usage{
 oneway.boxplot(formula, data, box = list(lwd = 1, lty = 2, col = "royalblue1"),
