@@ -21,7 +21,7 @@ oneway.dynplot(formula, data = NULL, ci = TRUE, alpha = 0.05, ...)
 Davide Massidda \email{davide.massidda@gmail.com}
 }
 \seealso{
-\code{\link[explorer]{oneway.boxplot}}
+\code{\link[explorer]{boxplot.CI}}
 }
 \examples{
 data(VPE)

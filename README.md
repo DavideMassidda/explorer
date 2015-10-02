@@ -7,3 +7,5 @@ explorer è un pacchetto per il software statistico R, che fornisce funzioni per
 Aperto R, per instllare explorer è sufficiente lanciare il comando:
 
 devtools::install_github("DavideMassidda/explorer")
+
+Attenzione: explorer è un pacchetto in piena fase di sviluppo e in futuro potrebbe subire importanti modifiche.
