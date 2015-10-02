@@ -41,7 +41,7 @@ function(formula,data=NULL,group=NULL,layout=c(1,1),box=list(lwd=1,lty=2,col="ro
     if(is.null(ylim))
         ylim <- range(dataset[,1])
     # Costruzione grafici
-    par(layout=layout)
+    par(mfrow=layout)
     shift.val <- shift
     for(j in 1:ng) {
         if(ng==1) {
