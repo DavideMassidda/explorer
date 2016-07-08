@@ -68,7 +68,7 @@ function(formula,data=NULL,group=NULL,layout=c(1,1),box=list(lwd=1,lty=2,col="ro
             staplecol=box$col,staplelwd=box$lwd,staplelty=box$lty,
             main=main[j],ylim=ylim,...
         )
-        arrows(shift,m-SE,shift,m+SE,angle=bars$angle,code=3,lwd=bars$lwd,col=bars$col)
+        arrows(shift,m-SE,shift,m+SE,angle=bars$angle,code=3,lwd=bars$lwd,col=bars$col,length=0.1)
         points(shift,m,col=bars$col,pch=bars$pch,cex=bars$cex)
         if(!identical(FALSE, join)) {
             if(isTRUE(join))
