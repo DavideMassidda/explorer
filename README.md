@@ -1,4 +1,4 @@
-explorer 0.6-0
+explorer 0.7-0
 ==============
 Strumenti per l'esplorazione dei dati
 
