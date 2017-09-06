@@ -1,6 +1,8 @@
 boxplot.CI <-
-function(formula,data=NULL,group=NULL,layout=c(1,1),stats=list(m=NULL,s=NULL,n=NULL),box=list(lwd=1,lty=2,col="royalblue1"),
-    bars=list(lwd=1,lty=1,col="black",angle=90,pch=19,cex=1,CI=TRUE,alpha=0.05),join=FALSE,shift=0.2,ylim=NULL,main=NULL,...)
+function(formula,data=NULL,group=NULL,layout=c(1,1),box=list(lwd=1,lty=2,col="royalblue1"),
+    bars=list(lwd=1,lty=1,col="black",angle=90,pch=19,cex=1,CI=TRUE,alpha=0.05),
+    stats=list(m=NULL,s=NULL,n=NULL,overlap=NULL,col="red3"), 
+    join=FALSE,shift=0.2,ylim=NULL,main=NULL,...)
 {
     if(!is.null(data)) {
         dataset <- get_all_vars(formula,data=data)
@@ -39,6 +41,7 @@ function(formula,data=NULL,group=NULL,layout=c(1,1),stats=list(m=NULL,s=NULL,n=N
     if(is.null(bars$alpha)) bars$alpha <- 0.05
     if(is.null(ylim))
         ylim <- range(dataset[,1])
+    double.stats <- is.null(stats$overlap)
     # Costruzione grafici
     par(mfrow=layout)
     shift.val <- shift
@@ -54,24 +57,27 @@ function(formula,data=NULL,group=NULL,layout=c(1,1),stats=list(m=NULL,s=NULL,n=N
         if(!is.factor(x)) x <- as.factor(x)
         lev <- length(levels(x))
         shift <- 1:lev+shift.val
-        if(is.null(stats$m))
-            m <- as.numeric(tapply(y,x,mean))
-        else
-            m <- stats$m
-        if(is.null(stats$s))
-            s <- as.numeric(tapply(y,x,sd))
-        else
-            s <- stats$s
-        if(is.null(stats$n))
-            n <- tapply(y,x, function(v) sum(!is.na(v)))
-        else
-            n <- stats$n
+        m <- as.numeric(tapply(y,x,mean))
+        s <- as.numeric(tapply(y,x,sd))
+        n <- tapply(y,x, function(v) sum(!is.na(v)))
         SE <- s/sqrt(n)
+        if(double.stats) {
+            m.new <- stats$m
+            s.new <- stats$s
+            n.new <- stats$n
+            SE.new <- s.new/sqrt(n.new)
+        }
         if(!is.null(bars$CI)) {
-            if(bars$CI > 0)
+            if(bars$CI > 0) {
                 SE <- qnorm(1-bars$alpha/2) * SE
-            if(bars$CI < 0)
+                if(double.stats)
+                    SE.new <- qnorm(1-bars$alpha/2) * SE.new
+            }
+            if(bars$CI < 0) {
                 SE <- s
+                if(double.stats)
+                    SE.new <- s.new
+            }
         }
         boxplot(y ~ x,
             boxcol=box$col,boxlwd=box$lwd,boxlty=box$lty,
@@ -89,6 +95,15 @@ function(formula,data=NULL,group=NULL,layout=c(1,1),stats=list(m=NULL,s=NULL,n=N
                 join <- 1:lev
             for(i in 1:length(join))
                 segments(shift[join[i]],m[join[i]],shift[join[i+1]],m[join[i+1]],lwd=bars$lwd,col=bars$col)
+        }
+        if(double.stats) {
+            if(!is.null(bars$CI))
+                arrows(shift,m.new-SE.new,shift,m.new+SE.new,angle=bars$angle,code=3,lwd=bars$lwd,col=stats$col,length=0.1)
+            points(shift,m.new,col=stats$col,pch=bars$pch,cex=bars$cex)
+            if(!identical(FALSE, join)) {
+                for(i in 1:length(join))
+                    segments(shift[join[i]],m.new[join[i]],shift[join[i+1]],m.new[join[i+1]],lwd=bars$lwd,col=stats$col)
+            }
         }
     }
     layout(1)
