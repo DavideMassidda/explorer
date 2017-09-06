@@ -36,7 +36,6 @@ function(formula,data=NULL,group=NULL,layout=c(1,1),stats=list(m=NULL,s=NULL,n=N
     if(is.null(bars$angle)) bars$angle <- 90
     if(is.null(bars$pch)) bars$pch <- 19
     if(is.null(bars$cex)) bars$cex <- 1
-    if(is.null(bars$CI)) bars$CI <- TRUE
     if(is.null(bars$alpha)) bars$alpha <- 0.05
     if(is.null(ylim))
         ylim <- range(dataset[,1])
@@ -68,10 +67,12 @@ function(formula,data=NULL,group=NULL,layout=c(1,1),stats=list(m=NULL,s=NULL,n=N
         else
             n <- stats$n
         SE <- s/sqrt(n)
-        if(bars$CI==1)
-            SE <- qnorm(1-bars$alpha/2) * SE
-        if(bars$CI==2)
-            SE <- s
+        if(!is.null(bars$CI)) {
+            if(bars$CI > 0)
+                SE <- qnorm(1-bars$alpha/2) * SE
+            if(bars$CI < 0)
+                SE <- s
+        }
         boxplot(y ~ x,
             boxcol=box$col,boxlwd=box$lwd,boxlty=box$lty,
             medcol=box$col,medlwd=box$lwd,medlty=box$lty,
@@ -80,7 +81,8 @@ function(formula,data=NULL,group=NULL,layout=c(1,1),stats=list(m=NULL,s=NULL,n=N
             staplecol=box$col,staplelwd=box$lwd,staplelty=box$lty,
             main=main[j],ylim=ylim,...
         )
-        arrows(shift,m-SE,shift,m+SE,angle=bars$angle,code=3,lwd=bars$lwd,col=bars$col,length=0.1)
+        if(!is.null(bars$CI))
+            arrows(shift,m-SE,shift,m+SE,angle=bars$angle,code=3,lwd=bars$lwd,col=bars$col,length=0.1)
         points(shift,m,col=bars$col,pch=bars$pch,cex=bars$cex)
         if(!identical(FALSE, join)) {
             if(isTRUE(join))
