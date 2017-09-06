@@ -1,7 +1,7 @@
 boxplot.CI <-
 function(formula,data=NULL,group=NULL,layout=c(1,1),box=list(lwd=1,lty=2,col="royalblue1"),
     bars=list(lwd=1,lty=1,col="black",angle=90,pch=19,cex=1,CI=TRUE,alpha=0.05),
-    stats=list(m=NULL,s=NULL,n=NULL,overlap=NULL,col="red3"), 
+    stats=list(m=NULL,s=NULL,n=NULL,overlap=NULL), 
     join=FALSE,shift=0.2,ylim=NULL,main=NULL,...)
 {
     if(!is.null(data)) {
@@ -42,6 +42,8 @@ function(formula,data=NULL,group=NULL,layout=c(1,1),box=list(lwd=1,lty=2,col="ro
     if(is.null(ylim))
         ylim <- range(dataset[,1])
     double.stats <- is.null(stats$overlap)
+    if(!double.stats & is.null(stats$col))
+        stats$col <- "red3"
     # Costruzione grafici
     par(mfrow=layout)
     shift.val <- shift
