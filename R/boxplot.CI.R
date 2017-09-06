@@ -1,5 +1,5 @@
 boxplot.CI <-
-function(formula,data=NULL,group=NULL,layout=c(1,1),box=list(lwd=1,lty=2,col="royalblue1"),
+function(formula,data=NULL,group=NULL,layout=c(1,1),stats=list(m=NULL,s=NULL,n=NULL),box=list(lwd=1,lty=2,col="royalblue1"),
     bars=list(lwd=1,lty=1,col="black",angle=90,pch=19,cex=1,CI=TRUE,alpha=0.05),join=FALSE,shift=0.2,ylim=NULL,main=NULL,...)
 {
     if(!is.null(data)) {
@@ -43,6 +43,10 @@ function(formula,data=NULL,group=NULL,layout=c(1,1),box=list(lwd=1,lty=2,col="ro
     # Costruzione grafici
     par(mfrow=layout)
     shift.val <- shift
+    personalized.stats <- ng==1
+    if(personalized.stats)
+        personalized.stats <- !is.null(stats$m) & !is.null(stats$s) & !is.null(stats$n)
+    # NB: statistiche personalizzate implementate solo se numero di gruppi = 1
     for(j in 1:ng) {
         if(ng==1) {
             y <- dataset[,1]
@@ -54,9 +58,15 @@ function(formula,data=NULL,group=NULL,layout=c(1,1),box=list(lwd=1,lty=2,col="ro
         if(!is.factor(x)) x <- as.factor(x)
         lev <- length(levels(x))
         shift <- 1:lev+shift.val
-        m <- as.numeric(tapply(y,x,mean))
-        s <- as.numeric(tapply(y,x,sd))
-        n <- tapply(y,x,length)
+        if(personalized.stats) {
+            m <- stats$m
+            s <- stats$s
+            n <- stats$n
+        } else {
+            m <- as.numeric(tapply(y,x,mean))
+            s <- as.numeric(tapply(y,x,sd))
+            n <- tapply(y,x,length)
+        }
         SE <- s/sqrt(n)
         if(bars$CI)
             SE <- qnorm(1-bars$alpha/2) * SE
