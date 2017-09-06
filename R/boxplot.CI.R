@@ -43,9 +43,6 @@ function(formula,data=NULL,group=NULL,layout=c(1,1),stats=list(m=NULL,s=NULL,n=N
     # Costruzione grafici
     par(mfrow=layout)
     shift.val <- shift
-    personalized.stats <- ng==1
-    if(personalized.stats)
-        personalized.stats <- !is.null(stats$m) & !is.null(stats$s) & !is.null(stats$n)
     # NB: statistiche personalizzate implementate solo se numero di gruppi = 1
     for(j in 1:ng) {
         if(ng==1) {
@@ -58,15 +55,18 @@ function(formula,data=NULL,group=NULL,layout=c(1,1),stats=list(m=NULL,s=NULL,n=N
         if(!is.factor(x)) x <- as.factor(x)
         lev <- length(levels(x))
         shift <- 1:lev+shift.val
-        if(personalized.stats) {
-            m <- stats$m
-            s <- stats$s
-            n <- stats$n
-        } else {
+        if(is.null(stats$m))
             m <- as.numeric(tapply(y,x,mean))
+        else
+            m <- stats$m
+        if(is.null(stats$s))
             s <- as.numeric(tapply(y,x,sd))
-            n <- tapply(y,x,length)
-        }
+        else
+            s <- stats$s
+        if(is.null(stats$n))
+            n <- tapply(y,x,function(x) sum(!is.na(y) & !is.na(x)))
+        else
+            n <- stats$n
         SE <- s/sqrt(n)
         if(bars$CI)
             SE <- qnorm(1-bars$alpha/2) * SE
