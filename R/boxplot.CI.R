@@ -64,7 +64,7 @@ function(formula,data=NULL,group=NULL,layout=c(1,1),stats=list(m=NULL,s=NULL,n=N
         else
             s <- stats$s
         if(is.null(stats$n))
-            n <- tapply(y,x,function(x) sum(!is.na(y) & !is.na(x)))
+            n <- tapply(y,x, function(v) sum(!is.na(v)))
         else
             n <- stats$n
         SE <- s/sqrt(n)
