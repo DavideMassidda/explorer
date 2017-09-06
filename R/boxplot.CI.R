@@ -42,7 +42,7 @@ function(formula,data=NULL,group=NULL,layout=c(1,1),box=list(lwd=1,lty=2,col="ro
     if(is.null(ylim))
         ylim <- range(dataset[,1])
     double.stats <- !is.null(stats$overlap)
-    if(!double.stats & is.null(stats$col))
+    if(double.stats & is.null(stats$col))
         stats$col <- "red3"
     # Costruzione grafici
     par(mfrow=layout)
