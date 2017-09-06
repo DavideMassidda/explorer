@@ -8,7 +8,7 @@
 boxplot.CI(formula, data = NULL, group = NULL, layout = c(1,1),
     box = list(lwd = 1, lty = 2, col = "royalblue1"),
     bars = list(lwd = 1, lty = 1, col = "black", angle = 90,
-    stats = list(m = NULL, s = NULL, n = NULL, overlap = NULL, col = "red3"), 
+    stats = list(m = NULL, s = NULL, n = NULL, overlap = NULL), 
     pch = 19, cex = 1, CI = TRUE, alpha = 0.05), join = FALSE,
     shift = 0.2, ylim=NULL, main=NULL, ...)
 }
