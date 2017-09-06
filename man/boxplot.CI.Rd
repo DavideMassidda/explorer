@@ -6,6 +6,7 @@
 }
 \usage{
 boxplot.CI(formula, data = NULL, group = NULL, layout = c(1,1),
+    stats = list(m = NULL, s = NULL, n = NULL)
     box = list(lwd = 1, lty = 2, col = "royalblue1"),
     bars = list(lwd = 1, lty = 1, col = "black", angle = 90,
     pch = 19, cex = 1, CI = TRUE, alpha = 0.05), join = FALSE,
@@ -20,6 +21,7 @@ boxplot.CI(formula, data = NULL, group = NULL, layout = c(1,1),
                   Se è specificato un fattore di raggruppamento e il valore di default \code{c(1,1)},
                   non viene modificato, il valore di \code{layout} viene automaticamente corretto in
                   \code{c(1,k)}, dove \code{k} è il numero di livelli del fattore (vedi esempi).}
+    \item{stats}{Statistiche descrittive personalizzate (valido solo se \code{group=NULL)}.}.
     \item{box}{Specifiche grafiche da passare alla funzione \code{boxplot}.}
     \item{bars}{Specifiche grafiche dei segmenti che descrivono le barre d'errore intorno alle medie.}
     \item{join}{Valore logico. Se \code{TRUE}, le medie saranno congiunte attraverso dei segmenti.}
