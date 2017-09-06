@@ -6,7 +6,7 @@
 }
 \usage{
 boxplot.CI(formula, data = NULL, group = NULL, layout = c(1,1),
-    stats = list(m = NULL, s = NULL, n = NULL)
+    stats = list(m = NULL, s = NULL, n = NULL),
     box = list(lwd = 1, lty = 2, col = "royalblue1"),
     bars = list(lwd = 1, lty = 1, col = "black", angle = 90,
     pch = 19, cex = 1, CI = TRUE, alpha = 0.05), join = FALSE,
