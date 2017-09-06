@@ -64,7 +64,7 @@ function(formula,data=NULL,group=NULL,layout=c(1,1),box=list(lwd=1,lty=2,col="ro
         n <- tapply(y,x, function(v) sum(!is.na(v)))
         SE <- s/sqrt(n)
         if(double.stats) {
-            if(stats$overlap) {
+            if(isTRUE(stats$overlap)) {
                 m.new <- stats$m
                 s.new <- stats$s
                 n.new <- stats$n
