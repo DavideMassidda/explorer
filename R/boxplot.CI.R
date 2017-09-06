@@ -68,8 +68,10 @@ function(formula,data=NULL,group=NULL,layout=c(1,1),stats=list(m=NULL,s=NULL,n=N
         else
             n <- stats$n
         SE <- s/sqrt(n)
-        if(bars$CI)
+        if(bars$CI==1)
             SE <- qnorm(1-bars$alpha/2) * SE
+        if(bars$CI==2)
+            SE <- s
         boxplot(y ~ x,
             boxcol=box$col,boxlwd=box$lwd,boxlty=box$lty,
             medcol=box$col,medlwd=box$lwd,medlty=box$lty,
